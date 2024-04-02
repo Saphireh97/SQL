@@ -64,6 +64,22 @@ WHEN paid_time_off_days <15 THEN 'not_interested'
 END
 FROM fortune_companies;
 
+/* Which industries have the highest amount of PTO days that average at least 15 days? */
+SELECT industry, ROUND(AVG(paid_time_off_days),1) AS avg_pto
+FROM fortune_companies
+GROUP BY industry
+HAVING ROUND(AVG(paid_time_off_days),1) >=15
+ORDER BY avg_pto DESC;
+
+/* Which company has the greatest amount of revenue and offers employees healthcare?*/
+SELECT company_name, MAX(revenue),healthcare_benefits
+FROM fortune_companies
+WHERE healthcare_benefits=1;
+
+/* Which company has the highest averaging tenure?*/
+SELECT company_name, MAX(AVG(avg_employee_tenure),1) AS 'max_avg_tenure'
+FROM fortune_companies;
+
 
 
 
